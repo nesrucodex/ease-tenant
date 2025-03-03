@@ -52,15 +52,16 @@ const SignUp = () => {
       name: values.name,
       email: values.email,
       password: values.password,
-      callbackURL: "/sign-in",
       fetchOptions: {
         onRequest: () => {
           setIsLoading(true);
         },
         onSuccess: () => {
-          successToast("You signed up successfully.");
           setIsLoading(false);
           router.push("/sign-in");
+          setTimeout(() => {
+            successToast("You signed up successfully.");
+          }, 400);
         },
         onError: (ctx) => {
           errorToast("Error signing up: " + ctx.error.message);
@@ -73,15 +74,16 @@ const SignUp = () => {
   const handleGoogleSignOn = () => {
     signIn.social({
       provider: "google",
-      callbackURL: "/",
       fetchOptions: {
         onRequest: () => {
           setIsLoading(true);
         },
         onSuccess: () => {
-          successToast("You signed up successfully.");
           setIsLoading(false);
           router.push("/");
+          setTimeout(() => {
+            successToast("You signed up successfully.");
+          }, 400);
         },
         onError: (ctx) => {
           errorToast("Error signing up: " + ctx.error.message);

@@ -42,15 +42,16 @@ const SignIn = () => {
     signIn.email({
       email: values.email,
       password: values.password,
-      callbackURL: "/sign-in",
       fetchOptions: {
         onRequest: () => {
           setIsLoading(true);
         },
         onSuccess: () => {
-          successToast("You signed in successfully.");
           setIsLoading(false);
           router.push("/");
+          setTimeout(() => {
+            successToast("You signed in successfully.");
+          }, 400);
         },
         onError: (ctx) => {
           errorToast("Error signing up: " + ctx.error.message);
@@ -63,14 +64,16 @@ const SignIn = () => {
   const handleGoogleSignOn = () => {
     signIn.social({
       provider: "google",
-      callbackURL: "/",
       fetchOptions: {
         onRequest: () => {
           setIsLoading(true);
         },
         onSuccess: () => {
-          successToast("You signed in successfully.");
           setIsLoading(false);
+          router.push("/");
+          setTimeout(() => {
+            successToast("You signed in successfully.");
+          }, 400);
         },
         onError: (ctx) => {
           errorToast("Error signing in: " + ctx.error.message);
