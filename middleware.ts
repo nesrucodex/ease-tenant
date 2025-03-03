@@ -14,8 +14,7 @@ export async function middleware(request: NextRequest) {
 
   // If we don't have session and a user request protected pages we redirect him into /sign-in
   if (!session && PROTECTED_ROUTES.includes(new URL(request.url).pathname))
-    if (!session && PROTECTED_ROUTES.includes(new URL(request.url).pathname))
-      return NextResponse.redirect(new URL("/sign-in", request.url));
+    return NextResponse.redirect(new URL("/sign-in", request.url));
 
   // If we have session and a user request auth pages we redirect him into /
   if (session && AUTH_ROUTES.includes(new URL(request.url).pathname))
