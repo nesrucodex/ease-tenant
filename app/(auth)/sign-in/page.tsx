@@ -172,6 +172,7 @@ const SignIn = () => {
             alt="Building Image"
             className="rounded-b-2xl rounded-l-2xl object-cover"
             fill
+            placeholder="blur"
           />
         </div>
       </section>
