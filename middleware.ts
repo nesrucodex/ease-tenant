@@ -8,21 +8,27 @@ const PROTECTED_ROUTES = ["/"];
 const AUTH_ROUTES = ["/sign-in", "/sign-up"];
 
 export async function middleware(request: NextRequest) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  if (
+    [...PROTECTED_ROUTES, ...AUTH_ROUTES].includes(
+      new URL(request.url).pathname,
+    )
+  ) {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
 
-  // If we don't have session and a user request protected pages we redirect him into /sign-in
-  if (!session && PROTECTED_ROUTES.includes(new URL(request.url).pathname))
-    return NextResponse.redirect(new URL("/sign-in", request.url));
+    // If we don't have session and a user request protected pages we redirect him into /sign-in
+    if (!session && PROTECTED_ROUTES.includes(new URL(request.url).pathname))
+      return NextResponse.redirect(new URL("/sign-in", request.url));
 
-  // If we have session and a user request auth pages we redirect him into /
-  if (session && AUTH_ROUTES.includes(new URL(request.url).pathname))
-    return NextResponse.redirect(new URL("/", request.url));
+    // If we have session and a user request auth pages we redirect him into /
+    if (session && AUTH_ROUTES.includes(new URL(request.url).pathname))
+      return NextResponse.redirect(new URL("/", request.url));
+  }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/sign-in", "/sign-up", "/"],
+  matcher: [/\/api\/.*/, "/sign-in", "/sign-up", "/"],
 };
