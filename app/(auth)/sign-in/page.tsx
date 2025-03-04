@@ -108,16 +108,25 @@ const SignIn = () => {
                       input: "h-10",
                     }}
                   />
-                  <FormField<SignInSchema>
-                    type="password"
-                    control={form.control}
-                    name="password"
-                    label="Password"
-                    placeholder="Password"
-                    classNames={{
-                      input: "h-10",
-                    }}
-                  />
+                  <div className="relative">
+                    <FormField<SignInSchema>
+                      type="password"
+                      control={form.control}
+                      name="password"
+                      label="Password"
+                      placeholder="Password"
+                      classNames={{
+                        input: "h-10",
+                      }}
+                    />
+
+                    <Link
+                      href="/reset-password"
+                      className="absolute -top-2 right-0"
+                    >
+                      <small className="text-primary">Forget Password?</small>
+                    </Link>
+                  </div>
                 </Stack>
 
                 <Stack className="mt-8">
